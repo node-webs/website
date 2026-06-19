@@ -1,8 +1,9 @@
 // 1. 데이터를 담을 가방 (모듈 내부 변수)
 let petDatabase = [];
+let eventDatabase = [];
 
 /**
- * 외부에서 데이터를 원격으로 가져와 정제하는 함수
+ * 외부에서 품종 데이터를 원격으로 가져와 정제하는 함수
  */
 export const loadPetDatabase = async (searchInput) => {
     try {
@@ -46,4 +47,47 @@ export const filterPets = (keyword) => {
         pet.name.ko.toLowerCase().includes(cleanKeyword) || 
         pet.name.en.toLowerCase().includes(cleanKeyword)
     );
+};
+
+/**
+ * 3) 🌟 외부에서 이벤트 데이터를 원격으로 가져오는 함수
+ */
+export const loadEventDatabase = async () => {
+    try {
+        const response = await fetch('/script/json/events.json'); 
+        if (!response.ok) throw new Error('이벤트 데이터를 불러오는데 실패했습니다.');
+        
+        eventDatabase = await response.json();
+    } catch (error) {
+        console.error('이벤트 에러 발생:', error);
+    }
+};
+
+/**
+ * 4) 🌟 감지된 타입들(dog, cat)에 매칭되는 이벤트들만 필터링하는 함수
+ * 품종 검색 결과(타입)에 맞춰 이벤트를 가져오는 함수
+ */
+export const filterEventsByType = (types) => {
+    // types 배열(예: ['dog'])에 포함된 target을 가진 이벤트만 필터링하여 반환
+    return eventDatabase.filter(event => types.includes(event.target));
+};
+
+/**
+ * 5) 🌟 입력된 키워드가 '이벤트 제목'이나 '배지 이름'에 포함되어 있는지 검사하는 함수
+ */
+export const filterEventsByKeyword = (keyword) => {
+    if (!keyword) return [];
+    
+    // 앞뒤 공백을 완전히 제거하고 소문자화 (한글은 소문자화해도 그대로 유지됨)
+    const cleanKeyword = keyword.trim().toLowerCase();
+    
+    // 키워드가 빈 문자열이면 빈 배열 반환
+    if (cleanKeyword === "") return [];
+
+    return eventDatabase.filter(event => {
+        const titleMatch = event.title && event.title.toLowerCase().includes(cleanKeyword);
+        const badgeMatch = event.badge && event.badge.toLowerCase().includes(cleanKeyword);
+        
+        return titleMatch || badgeMatch;
+    });
 };

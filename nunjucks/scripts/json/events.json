@@ -1,0 +1,142 @@
+[
+  {
+    "id": "ev_01",
+    "target": "dog",
+    "badge": "캠페인",
+    "title": "우리 아이 외출 필수! '강아지 인식표 만들기' 원데이 클래스",
+    "link": "/events/tag-making"
+  },
+  {
+    "id": "ev_02",
+    "target": "dog",
+    "badge": "이벤트",
+    "title": "리트리버 및 성장기 대형견 전용 사료 샘플 무료 신청",
+    "link": "/events/dog-food-sample"
+  },
+  {
+    "id": "ev_03",
+    "target": "cat",
+    "badge": "쇼핑",
+    "title": "국산 프리미엄 고양이 모래 벤토나이트 공동 구매전 (최대 20% 할인)",
+    "link": "/shop/cat-sand"
+  },
+  {
+    "id": "ev_04",
+    "target": "cat",
+    "badge": "꿀팁",
+    "title": "초보 집사를 위한 고양이 헤어볼 관리 빗질 및 츄어블 영양제 가이드",
+    "link": "/blog/hairball-guide"
+  },
+  {
+    "id": "ev_05",
+    "target": "dog",
+    "badge": "훈련",
+    "title": "초보 견주를 위한 강아지 배변 훈련 및 사회성 기르기 무료 영상 교육",
+    "link": "/academy/toilet-training"
+  },
+  {
+    "id": "ev_06",
+    "target": "dog",
+    "badge": "쇼핑",
+    "title": "댕댕이 관절 보호를 위한 강아지 매트 및 슬라이드 계단 기획전",
+    "link": "/shop/dog-mat"
+  },
+  {
+    "id": "ev_07",
+    "target": "cat",
+    "badge": "건강",
+    "title": "음수량이 부족한 고양이를 위한 정수기 필터 교체 체험단 모집",
+    "link": "/events/water-fountain"
+  },
+  {
+    "id": "ev_08",
+    "target": "cat",
+    "badge": "이벤트",
+    "title": "냥이 스트레스 해소용 수제 캣잎 쿠션 100원 선착순 타임딜",
+    "link": "/shop/catnip-deal"
+  },
+  {
+    "id": "ev_09",
+    "target": "dog",
+    "badge": "미용",
+    "title": "여름철 위생 관리를 위한 강아지 발바닥 털 미용 및 발톱 깎기 세미나",
+    "link": "/events/grooming-class"
+  },
+  {
+    "id": "ev_10",
+    "target": "dog",
+    "badge": "공모전",
+    "title": "제 3회 멍냥타운 반려견 모델 선발 대회 (총 상금 100만 원)",
+    "link": "/contest/dog-model"
+  },
+  {
+    "id": "ev_11",
+    "target": "cat",
+    "badge": "꿀팁",
+    "title": "고양이 발톱 스크래처 고르는 법: 수직형 vs 평면형 장단점 비교",
+    "link": "/blog/scratcher-tip"
+  },
+  {
+    "id": "ev_12",
+    "target": "cat",
+    "badge": "캠페인",
+    "title": "유기묘 후원을 위한 반려인 굿즈 펀딩 및 에코백 나눔 캠페인",
+    "link": "/campaign/save-cats"
+  },
+  {
+    "id": "ev_13",
+    "target": "dog",
+    "badge": "쇼핑",
+    "title": "야간 산책 안전 보장! LED 강아지 하네스 및 리드줄 단독 특가",
+    "link": "/shop/led-harness"
+  },
+  {
+    "id": "ev_14",
+    "target": "dog",
+    "badge": "건강",
+    "title": "노령견 영양 관리: 강아지 슬개골 탈구 예방 글루코사민 영양제 추천",
+    "link": "/blog/dog-joint"
+  },
+  {
+    "id": "ev_15",
+    "target": "cat",
+    "badge": "쇼핑",
+    "title": "수직 공간 확보를 위한 고양이 원목 캣타워 및 캣폴 주말 한정 세일",
+    "link": "/shop/cat-tower"
+  },
+  {
+    "id": "ev_16",
+    "target": "cat",
+    "badge": "훈련",
+    "title": "이사나 병원 방문 시 유용한 고양이 이동장(캐리어) 친해지기 교육",
+    "link": "/academy/carrier-training"
+  },
+  {
+    "id": "ev_17",
+    "target": "dog",
+    "badge": "이벤트",
+    "title": "댕댕이 수제 간식 연어 정육 져키 1+1 정기 구독 런칭 이벤트",
+    "link": "/events/snack-subscribe"
+  },
+  {
+    "id": "ev_18",
+    "target": "dog",
+    "badge": "꿀팁",
+    "title": "여름철 강아지 열사병 예방을 위한 쿨매트 활용 및 수분 공급 방법",
+    "link": "/blog/dog-summer"
+  },
+  {
+    "id": "ev_19",
+    "target": "cat",
+    "badge": "건강",
+    "title": "고양이 치주질환 예방을 위한 올바른 칫솔질 및 바르는 치약 가이드",
+    "link": "/blog/cat-teeth"
+  },
+  {
+    "id": "ev_20",
+    "target": "cat",
+    "badge": "공모전",
+    "title": "우리 집 고양이 '요염한 식빵 굽기' 사진 콘테스트 개최",
+    "link": "/contest/cat-photo"
+  }
+]

@@ -16,6 +16,8 @@
             
             <!-- 우측 대형 검색창 (search-bar 컴포넌트) -->
             <div class="header-search">
+                {% set searchWidth = "600px" %}
+                {% set searchHeight = "60px" %}
                 {% include "views/components/search-bar.pet" %}
             </div>
         </div>

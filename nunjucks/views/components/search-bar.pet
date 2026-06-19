@@ -1,75 +1,92 @@
 <!-- ==========================================================================
-   1. HTML 구조 (Template)
+   1. HTML 구조 (인풋창과 버튼을 한 박스에 깔끔하게 배치)
    ========================================================================== -->
-<div class="search-container">
+<div class="search-container" id="custom-search-container">
+    <!-- 입력창 -->
     <input type="text" id="search-input" placeholder="데이터를 불러오는 중입니다...">
+    
+    <!-- 🌟 인풋 내부 오른쪽 끝에 고정될 검색 버튼 -->
+    <button type="button" id="custom-search-btn" class="search-btn">🔍</button>
+    
+    <!-- 자동완성 결과 리스트 -->
     <ul id="results-list" class="search-results"></ul>
 </div>
 
 
 <!-- ==========================================================================
-   2. 컴포넌트 전용 스타일 (Scoped Styles)
+   2. 일체형 검색창 CSS (Scoped Styles)
    ========================================================================== -->
 <style>
+    /* 전체 컨테이너를 상대 좌표의 기준점으로 설정 */
     .search-container {
         width: 100%;
         position: relative;
+        display: block; 
     }
 
-    /* .search-container input {
+    .search-container input {
         width: 100%;
-        padding: 12px 20px;
-        border: 2px solid #e0e0e0;
-        border-radius: 25px;
-        font-size: 15px;
+        padding: 0 60px 0 1.5rem; /* 🌟 중요: 오른쪽 패딩을 60px 주어 글자가 버튼과 겹치지 않게 함 */
+        font-size: 1.1rem;
+        border: 2px solid #ff9f43;
+        border-radius: 30px; /* 완벽한 알약 모양 */
         box-sizing: border-box;
         outline: none;
         background-color: #f1f3f5;
         transition: all 0.2s ease;
-    } */
-
-    .search-container input {
-        /* 1. 너비: 기존 max-width(예: 500px)가 있었다면 100px 줄인 값으로 설정 */
-        width: 100%;
-        max-width: 400px; /* 500px -> 400px로 100px 축소 */
-
-        /* 2. 높이: 기존 padding이나 height에 20px을 추가 */
-        /* 만약 height로 고정되어 있었다면 (예: height: 40px -> 60px) */
-        height: 60px; 
-
-        /* 또는 padding으로 높이를 조절하고 계셨다면 아래와 같이 늘려줍니다. */
-        /* padding: 1.2rem 1.5rem; */
-
-        /* --- 이하 기존 디자인 스타일 유지 --- */
-        padding: 0 1.5rem;
-        font-size: 1.1rem;
-        border: 2px solid #ff9f43;
-        border-radius: 30px; /* 높이가 늘어남에 따라 알약 모양을 유지하도록 조절 */
-        outline: none;
-        box-sizing: border-box;
-        transition: all 0.2s ease;
     }
 
-    /* 포커스 되었을 때 부드러운 오렌지 계열로 변경 */
+    /* 포커스 되었을 때 효과 */
     .search-container input:focus {
         border-color: #ff9f43;
         background-color: #ffffff;
         box-shadow: 0 2px 8px rgba(255, 159, 67, 0.15);
     }
 
-    /* 자동완성 결과 리스트 스타일 */
+    /* 🌟 인풋 창 내부 오른쪽 끝으로 버튼을 강제 고정 */
+    .search-container .search-btn {
+        position: absolute;
+        right: 2px;         /* 테두리 두께를 감안해 미세하게 안쪽으로 배치 */
+        top: 50%;
+        transform: translateY(-50%); /* 위아래 정중앙 정렬 */
+        
+        width: 54px;         /* 인풋 창 내부 높이에 맞춰 정사각형 형태로 유연하게 대응 */
+        background: transparent; /* 🌟 배경을 투명하게 하여 인풋 내부처럼 보이게 함 */
+        border: none;
+        color: #ff9f43;      /* 오렌지색 돋보기 아이콘 */
+        font-size: 1.25rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.1s ease, color 0.2s ease;
+        z-index: 10;         /* 인풋창보다 위에 오도록 설정 */
+    }
+
+    /* 버튼 마우스 호버 및 클릭 액션 */
+    .search-container .search-btn:hover {
+        color: #e68a2e;      /* 마우스 올리면 돋보기 색상 진하게 */
+    }
+    .search-container .search-btn:active {
+        transform: translateY(-50%) scale(0.9); /* 누를 때 살짝 콩 튀는 효과 */
+    }
+
+    /* 자동완성 결과 리스트 스타일 (이제 100% 꽉 차게 떨어집니다) */
     .search-results {
         list-style: none;
         padding: 0;
-        margin: 8px 0 0 0;
+        margin: 0;
         border: 1px solid #ddd;
         border-radius: 12px;
         background: white;
-        max-height: 200px;
+
+        /* 🌟 수정: 최대 높이를 200px에서 400px로 확장합니다. (8개까지 스크롤 없이 노출 가능) */
+        max-height: 400px;  /* max-height: 200px; */
         overflow-y: auto;
         display: none; 
         position: absolute; 
-        width: 100%;
+        left: 0;
+        width: 100%; /* 🌟 버튼이 안으로 들어갔으므로 검색창 너비와 100% 일치시킴 */
         z-index: 100;
         box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     }
@@ -80,7 +97,7 @@
         border-bottom: 1px solid #f1f3f5;
         font-size: 0.95rem;
         color: #495057;
-        text-align: left; /* 왼쪽 정렬 보장 */
+        text-align: left; 
     }
 
     .search-results li:last-child {
@@ -93,7 +110,6 @@
         color: #ff9f43;
     }
 
-    /* 강아지/고양이 배지 스타일 */
     .badge {
         font-size: 11px;
         padding: 3px 9px;
@@ -108,19 +124,38 @@
 
 
 <!-- ==========================================================================
-   3. 컴포넌트 로직 (Script Module)
+   3. 컴포넌트 로직 (외부 높이 변수를 받아 버튼 크기 자동 세밀 튜닝)
    ========================================================================== -->
 <script type="module">
-    // 💡 상대 경로 조절: 컴포넌트가 어디서 include 되든 브라우저 기준 절대 경로(/js/...)로 모듈을 가져옵니다.
-    import { loadPetDatabase, filterPets } from '/script/js/loadSearchData.js';
+    import { loadPetDatabase, filterPets, loadEventDatabase, filterEventsByType, filterEventsByKeyword } from '/script/js/loadSearchData.js';
 
-    // 화면 요소(DOM) 가져오기
+    // Nunjucks 안전 변수 수신
+    const configWidth = "{{ searchWidth | default('400px') }}";
+    const configHeight = "{{ searchHeight | default('60px') }}";
+
+    // DOM 요소 선택
+    const container = document.getElementById('custom-search-container');
     const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('custom-search-btn');
     const resultsList = document.getElementById('results-list');
 
-    let currentIndex = -1; // 키보드 선택 번호표
+    // 화면 렌더링 시 동적 스타일 조립
+    container.style.maxWidth = configWidth;
+    container.style.margin = "0 auto";
+    searchInput.style.height = configHeight;
+    
+    // 🌟 버튼 높이와 너비를 인풋창 높이보다 살짝 작게 만들어 내부에 쏙 들어가게 만듭니다.
+    const btnSize = parseInt(configHeight) - 6;
+    searchBtn.style.height = `${btnSize}px`;
+    searchBtn.style.width = `${btnSize}px`;
+    resultsList.style.top = `calc(${configHeight} + 8px)`;
+    
+    // 자동완성 팝업창 위치를 인풋 높이에 연동
+    resultsList.style.top = `calc(${configHeight} + 8px)`;
 
-    // 1. 하이라이트 효과 전담 함수
+    // --- 기존 검색 엔진 로직 고스란히 유지 ---
+    let currentIndex = -1; 
+
     const highlightItem = (items) => {
         Array.from(items).forEach(item => item.classList.remove('selected'));
         if (currentIndex >= 0 && items[currentIndex]) {
@@ -129,7 +164,6 @@
         }
     };
 
-    // 2. 최종 선택 완료 시 실행되는 함수
     const selectItem = (name) => {
         alert("선택된 이름: " + name);
         searchInput.value = name;
@@ -137,17 +171,23 @@
         currentIndex = -1;
     };
 
-    // 3. 필터링된 결과를 화면에 HTML 줄로 그려주는 함수
-    const renderResults = (results) => {
+    const renderResults = (results, keyword) => {
         resultsList.innerHTML = '';
-        currentIndex = -1; 
+        currentIndex = -1;
 
-        if (results.length === 0) {
+        // 품종 검색 결과가 없고, 키워드로 검색된 이벤트도 없다면 종료하기 위한 사전 체크
+        const directMatchedEvents = filterEventsByKeyword(keyword);
+        // console.log("directMatchedEvents :: ", directMatchedEvents)
+
+        // 품종 결과도 '없고' + 직접 찾은 이벤트도 '동시에 없을 때'만 "결과 없음"을 띄웁니다.
+        if (results.length === 0 && directMatchedEvents.length === 0) {
             resultsList.innerHTML = `<li>검색 결과가 없습니다 🐾</li>`;
             resultsList.style.display = 'block';
             return;
         }
 
+        // 1. 매칭된 품종들 그리기
+        // [Step 1] 매칭된 품종들 먼저 리스트에 추가
         results.forEach(pet => {
             const li = document.createElement('li');
             const typeKorean = pet.type === 'dog' ? '강아지' : '고양이';
@@ -158,37 +198,85 @@
                 <span class="badge ${pet.type}">${typeKorean}</span>
             `;
             
-            // 키보드로 선택했을 때 값을 쉽게 가져올 수 있도록 데이터 매핑
             li.dataset.nameKo = pet.name.ko;
-
-            // 클릭 이벤트 설정
             li.addEventListener('click', () => selectItem(pet.name.ko));
             resultsList.appendChild(li);
         });
 
+        // [Step 2] 이벤트 수집 및 통합 (중복 방지)
+        // 2-1. 품종 연동형 이벤트 추출
+        // 검색된 품종들의 타입 추출 (예: ['dog', 'cat'])
+        const detectedTypes = [...new Set(results.map(pet => pet.type))];
+        const typeEvents = filterEventsByType(detectedTypes);
+
+        // 2-2. 품종 연동 이벤트와 제목 키워드 매칭 이벤트를 하나로 합치고 중복 제거 (id 기준)
+        const allMatchedEvents = [...typeEvents, ...directMatchedEvents];
+        const uniqueEvents = allMatchedEvents.filter((ev, index, self) =>
+            index === self.findIndex((t) => t.id === ev.id)
+        );
+
+        // [Step 3] 통합된 이벤트가 존재한다면 구분선 밑에 출력
+        // [Step 3] uniqueEvents에 ev_19가 잡혀있으므로 이 안으로 진입함!
+        if (uniqueEvents.length > 0) {
+            // 🧡 구분선(밑줄) 추가
+            const divider = document.createElement('li');
+            divider.style.padding = "0";
+            divider.style.borderBottom = "1px dashed #ff9f43"; 
+            divider.style.margin = "6px 0";
+            divider.style.cursor = "default";
+            divider.addEventListener('click', (e) => e.stopPropagation()); 
+            resultsList.appendChild(divider);
+
+            // 💚 이벤트 리스트 그리기
+            uniqueEvents.forEach(event => {
+                const liEvent = document.createElement('li');
+                liEvent.style.backgroundColor = "#fdfbf7"; 
+                liEvent.innerHTML = `
+                    <span style="color: #e68a2e; font-weight: bold; font-size: 12px; margin-right: 6px;">[${event.badge}]</span>
+                    <span style="font-size: 13px; color: #495057;">${event.title}</span>
+                `;
+                
+                liEvent.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    location.href = event.link;
+                });
+                
+                resultsList.appendChild(liEvent);
+            });
+        }
+
+        // 🌟 마지막 점검: 이 코드가 정상적으로 실행되어 display가 block으로 켜져야 합니다!
         resultsList.style.display = 'block';
     };
 
-    // 4. 실시간 입력 감지 이벤트 핸들러
+    // 🌟 실시간 입력 핸들러 부분도 keyword를 넘겨주도록 미세 수정
     const handleSearch = (event) => {
-        const keyword = event.target.value;
+        const keyword = event.target.value.trim();
         const filteredResults = filterPets(keyword); 
         
-        if (filteredResults.length === 0 && !keyword.trim()) {
+        // 품종 결과도 없고 키워드도 완전히 공백이면 창 닫기
+        // if (filteredResults.length === 0 && !keyword.trim()) {
+        //     resultsList.innerHTML = '';
+        //     resultsList.style.display = 'none';
+        //     currentIndex = -1;
+        //     return;
+        // }
+
+        // 🌟 수정: 입력창이 완전히 텅 비었을 때만 결과창을 닫고 초기화합니다.
+        if (keyword === "") {
             resultsList.innerHTML = '';
             resultsList.style.display = 'none';
             currentIndex = -1;
             return;
         }
         
-        renderResults(filteredResults);
+        // 글자가 조금이라도 들어있다면 무조건 그리기 엔진으로 보냅니다.
+        renderResults(filteredResults, keyword);
     };
 
-    // 5. 키보드 방향키 및 엔터 조작 이벤트
     searchInput.addEventListener('keydown', (e) => {
         const items = resultsList.getElementsByTagName('li');
         
-        // 방향키 조작 (결과창이 열려있을 때만)
         if (resultsList.style.display !== 'none' && items.length > 0 && !items[0].textContent.includes('검색 결과가 없습니다')) {
             if (e.key === 'ArrowDown') {
                 e.preventDefault();
@@ -206,17 +294,14 @@
             }
         }
 
-        // 엔터 키 조작
         if (e.key === 'Enter') {
             e.preventDefault();
-            // 1️⃣ 방향키로 리스트의 항목을 선택한 상태라면
             if (currentIndex >= 0 && items[currentIndex]) {
                 const selectedName = items[currentIndex].dataset.nameKo;
                 if (selectedName) {
                     selectItem(selectedName);
                 }
             } 
-            // 2️⃣ 방향키를 누르지 않고 검색창에서 바로 엔터를 쳤다면
             else {
                 const currentInputValue = searchInput.value.trim();
                 if (currentInputValue) {
@@ -226,18 +311,19 @@
         }
     });
 
-    // 6. 초기 실행 설정
     searchInput.addEventListener('input', handleSearch);
     searchInput.disabled = true;
     searchInput.placeholder = "데이터를 불러오는 중입니다...";
 
-    // 바탕화면 클릭 시 결과창 닫기
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.search-container')) {
             resultsList.style.display = 'none';
         }
     });
 
-    // DB 로드 시작
-    loadPetDatabase(searchInput);
+    // 🌟 데이터 로드부도 깔끔하게 일원화됩니다.
+    Promise.all([
+        loadPetDatabase(searchInput),
+        loadEventDatabase()
+    ]);
 </script>
