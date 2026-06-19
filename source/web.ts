@@ -1,12 +1,11 @@
 import path from 'path';
 import nunjucks from 'nunjucks';
+import passport from 'passport';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import express, { Express } from 'express';
 
-// npm i express express-session express-validator cookie-parser nunjucks
-// npm i -D @types/express @types/express-session @types/node ts-node typescript nodemon @types/cookie-parsernp @types/nunjucks
-
+import './module/env/dot.env';
 import webRouter from './webpage/zoo.router';
 
 // [ Express ]
@@ -14,14 +13,15 @@ const app: Express = express();
 app.set("port", process.env.PORT || 3000);
 
 // [ Nunjucks ]
-app.engine('web', nunjucks.render);
-app.set("view engine", "web");
+app.engine('pet', nunjucks.render);
+app.set("view engine", "pet");
 const env = nunjucks.configure(path.join(process.cwd(), "nunjucks"), {
     express: app, autoescape: true,
-    watch: process.env.NODE_ENV !== 'production', // 🌟 프로덕션 환경 성능을 위해 watch 옵션 제어
-    // __dirname: 현재 파일(index.ts 등)이 위치한 폴더 기준
-    // process.cwd(): 노드 프로세스가 실행된 루트 폴더(package.json이 있는 곳) 
+    watch: process.env.NODE_ENV !== 'web'
 });
+
+// [ Passport 전략 사전 초기화 ]
+// passportConfig();
 
 // [ 정적파일 ]
 app.use(express.static(path.join(process.cwd(), "public")));
@@ -47,6 +47,10 @@ app.use(session({
         maxAge: 1000 * 60 * 60   // 1시간 유지
     }
 }));
+
+// [ Passport ]
+app.use(passport.initialize()); // req 객체에 passport 설정을 초기화
+app.use(passport.session()); // req.session 객체에 저장된 정보를 바탕으로 passport.deserializeUser를 호출하여 req.user를 생성
 
 app.use('/', webRouter);
 

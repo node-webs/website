@@ -18,8 +18,8 @@ function encryptFile(mode: string): void {
         process.exit(1);
     }
 
-    const inputPath: string = path.join(process.cwd(), 'nunjucks', 'aset', `.${mode}`);
-    const outputPath: string = path.join(process.cwd(), 'nunjucks', 'aset', `${mode}x`);
+    const inputPath: string = path.join(process.cwd(), 'nunjucks', '_data', `.${mode}`);
+    const outputPath: string = path.join(process.cwd(), 'nunjucks', '_data', `${mode}x`);
 
     if (!fs.existsSync(inputPath)) {
         console.error(`❌ 원본 파일이 없습니다: ${inputPath}`);
