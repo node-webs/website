@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐾 멍냥타운 메인</title>
+    
+    <!-- 1. 기본 브라우저 초기화 및 공통 디자인 스타일 연결 -->
+    <link rel="stylesheet" href="/script/css/normalize.css">
+    <link rel="stylesheet" href="/script/css/style.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+       [Header Component] React의 <Header /> 처럼 실시간 검색창이 포함된 헤더를 삽입
+       ========================================================================== -->
+    {% include "views/components/header.pet" %}
+    
+    <hr>
+
+    <!-- ==========================================================================
+       [Main Content] 1200px 시스템이 적용된 메인 본문 영역
+       ========================================================================== -->
+    <main>
+        <div class="welcome-section">
+            <h2>환영합니다! 집사님들 🐶🐱</h2>
+            <p>{{ message if message else "우리집 귀여운 강아지와 고양이의 모든 정보를 만나보세요." }}</p>
+            
+            <!-- 버튼 액션 영역 -->
+            <div class="main-actions" style="margin-top: 2rem;">
+                <a href="/pet/dog" class="btn">🐶 귀여운 강아지 보기</a>
+                <a href="/pet/cat" class="btn">🐱 도도한 고양이 보기</a>
+            </div>
+        </div>
+    </main>
+
+    <hr>
+
+    <!-- ==========================================================================
+       [Footer] 하단 정보 영역
+       ========================================================================== -->
+    <footer>
+        <p>&copy; 2026 멍냥타운. Pure component inclusion structure without layout inheritance.</p>
+    </footer>
+
+</body>
+</html>

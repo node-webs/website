@@ -1,0 +1,85 @@
+/* ==========================================================================
+   style.css (1200px 레이아웃 시스템 및 본문 디자인)
+   ========================================================================== */
+
+body {
+    background-color: #f9f9f9;
+    color: #333333;
+}
+
+/* [핵심] 레이아웃 시스템 (최대 폭 1200px 및 반응형 여백) */
+header, main, footer, .container {
+    width: 100%;
+    max-width: 1200px;     /* PC 화면에서 콘텐츠가 늘어날 수 있는 최대 폭 */
+    margin: 0 auto;        /* 화면 가운데 정렬 */
+    padding: 0 20px;       /* 모바일 환경에서 화면 끝에 붙지 않도록 여백 제공 */
+}
+
+/* 상단 헤더 영역 */
+header {
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;       /* 모바일에서 메뉴가 아래로 떨어지도록 구조 유지 */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header nav a {
+    margin-left: 15px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+header nav a:hover {
+    color: #ff9f43;        /* 부드러운 오렌지 포인트 컬러 */
+}
+
+/* 구분선 스타일 */
+hr {
+    border: 0;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 0;
+}
+
+/* 본문 콘텐츠 영역 */
+main {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    min-height: 60vh;      /* 푸터가 화면 중간에 붕 뜨는 현상 방지 */
+}
+
+/* 버튼 스타일 */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #ffffff;
+    border: 2px solid #ff9f43;
+    color: #ff9f43;
+    border-radius: 30px;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #ff9f43;
+    color: #ffffff;
+    transform: translateY(-2px); /* 살짝 떠오르는 효과 */
+}
+
+/* 하단 푸터 영역 */
+footer {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #888888;
+}

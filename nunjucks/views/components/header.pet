@@ -1,0 +1,182 @@
+<!-- ==========================================================================
+   1. HTML 구조 & 컴포넌트 조립 (2단 레이아웃 구조)
+   ========================================================================== -->
+<header class="main-header">
+    
+    <!-- [상단 영역] 로고와 검색창이 나란히 배치 -->
+    <div class="header-top">
+        <div class="header-top-inner">
+            <!-- 좌측 로고 -->
+            <div class="header-logo">
+                <a href="/">
+                    <span class="logo-icon">🐾</span>
+                    <span class="logo-text">멍냥타운</span>
+                </a>
+            </div>
+            
+            <!-- 우측 대형 검색창 (search-bar 컴포넌트) -->
+            <div class="header-search">
+                {% include "views/components/search-bar.pet" %}
+            </div>
+        </div>
+    </div>
+
+    <!-- [하단 영역] 전체 너비의 메뉴 네비게이션 바 -->
+    <nav class="header-nav">
+        <div class="header-nav-inner">
+            <ul>
+                <li><a href="/shop"><span class="nav-emoji">🛍️</span> 쇼핑</a></li>
+                <li><a href="/blog"><span class="nav-emoji">📝</span> 블로그</a></li>
+                <li><a href="/find-pet"><span class="nav-emoji">🔍</span> 애완견·애완묘 찾기</a></li>
+                <li><a href="/events"><span class="nav-emoji">🎁</span> 이벤트</a></li>
+            </ul>
+        </div>
+    </nav>
+
+</header>
+
+
+<!-- ==========================================================================
+   2. 네이버 스타일 2단 헤더 CSS (Scoped Styles)
+   ========================================================================== -->
+<style>
+    /* 헤더 전체 기본 설정 (세로 정렬 강제) */
+    .main-header {
+        width: 100%;
+        background-color: #ffffff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* --------------------------------------------------
+       상단 영역 (Top Section - 로고 & 검색창)
+    -------------------------------------------------- */
+    .header-top {
+        width: 100%;
+        border-bottom: 1px solid #f1f3f5;
+    }
+    
+    .header-top-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1.5rem 20px;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center; /* 🌟 좌우 끝 정렬에서 -> 가운데 정렬로 변경 */
+        gap: 60px;               /* 로고와 검색창 사이의 여백을 넉넉하게 지정 */
+    }
+
+    .header-logo a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+    .header-logo .logo-icon {
+        font-size: 2rem;
+    }
+    .header-logo .logo-text {
+        font-size: 1.6rem;
+        font-weight: 850;
+        color: #ff9f43;
+        letter-spacing: -0.5px;
+    }
+
+    /* 검색창 영역 (가운데서 균형을 잡도록 flex 지우고 고정 너비 설정) */
+    .header-search {
+        width: 100%;
+        max-width: 600px; /* 검색창의 쾌적한 최대 너비 */
+        position: relative;
+    }
+
+    /* --------------------------------------------------
+       하단 영역 (Navigation Section - 메뉴 바)
+    -------------------------------------------------- */
+    .header-nav {
+        width: 100%;
+        border-bottom: 1px solid #e9ecef;
+        background-color: #f8f9fa;
+    }
+
+    .header-nav-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        
+        display: flex;
+        justify-content: center; /* 🌟 메뉴 일람을 화면 정중앙으로 정렬 */
+    }
+
+    .header-nav ul {
+        display: flex;
+        gap: 40px; /* 메뉴 글자들 사이의 간격 */
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .header-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 1rem 0;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #212529;
+        position: relative;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .header-nav a:hover {
+        color: #ff9f43;
+    }
+    .header-nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background-color: #ff9f43;
+        transition: width 0.2s ease;
+    }
+    .header-nav a:hover::after {
+        width: 100%;
+    }
+
+    .nav-emoji {
+        font-size: 1.15rem;
+    }
+
+    /* --------------------------------------------------
+       반응형 모바일 모드 조절
+    -------------------------------------------------- */
+    @media (max-width: 768px) {
+        .header-top-inner {
+            flex-direction: column;
+            gap: 15px;
+            padding: 1.2rem 20px;
+        }
+        .header-search {
+            max-width: 100%;
+        }
+        .header-nav-inner {
+            justify-content: flex-start; /* 모바일에서는 스크롤을 위해 왼쪽 정렬로 전환 */
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .header-nav ul {
+            gap: 25px;
+            padding: 0 5px;
+        }
+        .header-nav a {
+            padding: 0.8rem 0;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+    }
+</style>
