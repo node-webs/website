@@ -23,14 +23,6 @@ const env = nunjucks.configure(path.join(process.cwd(), "nunjucks"), {
     // process.cwd(): 노드 프로세스가 실행된 루트 폴더(package.json이 있는 곳) 
 });
 
-// app.use(cors({
-//     // 다른 도메인에서 API 요청 허용
-//     origin: ['http://localhost:3000', 'http://localhost:8080'],
-//     methods: ['GET', 'POST'], // 허용할 HTTP 메서드
-//     allowedHeaders: ['Content-Type', 'Authorization'], // 특정 헤더만 허용
-//     credentials: true, // 쿠키와 같은 자격 증명 허용
-// }));
-
 // [ 정적파일 ]
 app.use(express.static(path.join(process.cwd(), "public")));
 // 🌟 [정적 파일 미들웨어 추가 추천] Nunjucks 화면용 CSS, JS를 서빙하기 위한 공간
